@@ -1,6 +1,5 @@
 package com.backend.blog.models;
 
-import com.backend.blog.PostStatus;
 import jakarta.persistence.*;
 import lombok.*;
 

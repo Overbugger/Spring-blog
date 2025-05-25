@@ -1,4 +1,4 @@
-package com.backend.blog;
+package com.backend.blog.models;
 
 public enum PostStatus {
     DRAFT, PUBLISHED

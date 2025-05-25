@@ -1,6 +1,6 @@
 package com.backend.blog.mappers;
 
-import com.backend.blog.PostStatus;
+import com.backend.blog.models.PostStatus;
 import com.backend.blog.dtos.CategoryDto;
 import com.backend.blog.dtos.CreateCategoryRequest;
 import com.backend.blog.models.Category;
