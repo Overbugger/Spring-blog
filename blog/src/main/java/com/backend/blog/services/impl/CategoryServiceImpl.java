@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -29,4 +30,17 @@ public class CategoryServiceImpl implements CategoryService {
         }
         return categoryRepo.save(newCategory);
     }
+
+    @Override
+    public void deleteCategory(Integer id) {
+        Optional<Category> category = categoryRepo.findById(id);
+        if(category.isPresent()) {
+            if(!category.get().getPosts().isEmpty()) {
+                throw new IllegalArgumentException("Category has posts associated with it");
+            }
+        }
+        categoryRepo.deleteById(id);
+    }
+
+
 }
