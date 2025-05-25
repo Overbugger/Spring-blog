@@ -19,7 +19,7 @@ public class Tag {
 
     @Id
     @GeneratedValue
-    private String id;
+    private Integer id;
 
     @Column(nullable = false, unique = true)
     private String name;
