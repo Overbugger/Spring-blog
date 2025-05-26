@@ -1,8 +1,6 @@
 package com.backend.blog.config;
 
-import com.backend.blog.models.User;
 import com.backend.blog.repo.UserRepo;
-import com.backend.blog.security.BlogUserDetails;
 import com.backend.blog.security.BlogUserDetailsService;
 import com.backend.blog.security.JwtAuthFilter;
 import com.backend.blog.services.AuthService;
@@ -12,6 +10,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -40,7 +39,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/v1/tags/**").permitAll()
                         .anyRequest().authenticated()
                 )
-                .csrf(csrf -> csrf.disable())
+                .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(sessions ->
                         sessions.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 ).addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
@@ -50,20 +49,6 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService(UserRepo userRepo) {
-//        BlogUserDetailsService blogUserDetailsService = new BlogUserDetailsService(userRepo);
-//        String email = "user@email.com";
-//
-//        userRepo.findByEmail(email).orElseGet(() -> {
-//            User newUser = User.builder()
-//                    .name("Test user")
-//                    .email(email)
-//                    .password(passwordEncoder().encode("password"))
-//                    .build();
-//            return userRepo.save(newUser);
-//        });
-//
-//        return blogUserDetailsService;
-
        return new BlogUserDetailsService(userRepo);
     }
 
