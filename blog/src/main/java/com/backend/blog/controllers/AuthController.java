@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/api/v1/auth")
+@RequestMapping(path = "/api/v1/auth/login")
 @RequiredArgsConstructor
 public class AuthController {
     private final AuthService authService;
@@ -21,6 +21,7 @@ public class AuthController {
     public ResponseEntity<AuthResponse> login(
             @RequestBody LoginRequest loginRequest
             ){
+
         UserDetails userDetails = authService.authenticate(
                 loginRequest.getEmail(),
                 loginRequest.getPassword()
